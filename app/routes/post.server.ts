@@ -21,7 +21,7 @@ function isValidPostAttributes(
 }
 
 export async function getPost(slug: string): Promise<Post> {
-  const postsPath = path.join(__dirname, "..", "posts");
+  const postsPath = path.join(__dirname, "..", "..", "posts");
   const filepath = path.join(postsPath, slug + ".md");
   const file = await fs.readFile(filepath);
   const { attributes, body } = parseFrontMatter(file.toString());
@@ -34,7 +34,7 @@ export async function getPost(slug: string): Promise<Post> {
 }
 
 export async function getPosts(): Promise<Post[]> {
-  const postsPath = path.join(__dirname, "..", "posts");
+  const postsPath = path.join(__dirname, "..", "..", "posts");
   const dir = await fs.readdir(postsPath);
 
   return Promise.all(
@@ -63,7 +63,7 @@ type NewPost = {
 };
 
 export async function createPost(post: NewPost) {
-  const postsPath = path.join(__dirname, "..", "posts");
+  const postsPath = path.join(__dirname, "..", "..", "posts");
   const md = `---\ntitle: ${post.title}\n---\n\n${post.markdown}`;
   await fs.writeFile(path.join(postsPath, post.slug + ".md"), md);
   return getPost(post.slug);
